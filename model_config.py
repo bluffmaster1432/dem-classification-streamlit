@@ -359,5 +359,5 @@ def get_model():
 
 
 
-    model.load_state_dict(torch.load('epoch_70-val_loss_0.06598862414533387-val_acc_0.8799805835801728.pt'))
+    model.load_state_dict(torch.load('model.pt'))
     return model

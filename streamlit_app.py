@@ -25,6 +25,7 @@ def predict(image):
     """
     # create a ResNet model
     resnet = get_model() #models.resnet101(pretrained = True)
+    #torch.save(resnet.state_dict(),'model.pt', _use_new_zipfile_serialization=False)
 
     # transform the input image through resizing, normalization
     transform = transforms.Compose([
