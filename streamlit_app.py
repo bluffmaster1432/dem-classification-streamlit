@@ -7,7 +7,7 @@ from PIL import Image
 from model_config import get_model
 
 # set title of app
-st.title("Simple Image Classification Application")
+st.title("Benign/Malignant Classification Application")
 st.write("")
 
 # enable users to upload images for the model to make predictions
