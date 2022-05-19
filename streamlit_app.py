@@ -41,14 +41,18 @@ def predict(image):
     batch_t = torch.unsqueeze(transform(img), 0)
     resnet.eval()
     out = resnet(batch_t)[0]
-    print(out)
+    # print(out)
 
     classes = ['Benign', 'Malignant']
 
     # return the top 5 predictions ranked by highest probabilities
-    prob = torch.nn.functional.softmax(out, dim = 1)[0] * 100
+    # prob = torch.nn.functional.softmax(out, dim = 1)[0] * 100
+    prob = torch.nn.functional.softmax(out) * 100
     _, indices = torch.sort(out, descending = True)
-    return [(classes[idx], prob[idx].item()) for idx in indices[0][:5]]
+    # print(indices)
+    # return [(classes[idx], prob[idx].item()) for idx in indices[0][:5]]
+
+    return [(classes[idx], prob[idx].item()) for idx in indices[:5]]
 
 
 if file_up is not None:

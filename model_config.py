@@ -65,7 +65,7 @@ import random
 import shutil
 import time
 #os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-
+from efficientnet_pytorch import EfficientNet
 
 # In[2]:
 
@@ -315,7 +315,8 @@ class Identity(nn.Module):
 
 def get_model():
 
-    pretrained_model = models.resnet34(pretrained = True)
+    # pretrained_model = models.resnet34(pretrained = True)
+    model = EfficientNet.from_pretrained('efficientnet-b1', num_classes=2)
 
 
     # We can see that the final linear layer for the classification, `fc`, has a 1000-dimensional output as it was pre-trained on the ImageNet dataset, which has 1000 classes.
@@ -329,28 +330,28 @@ def get_model():
     # In[26]:
 
 
-    IN_FEATURES = pretrained_model.fc.in_features
-    OUTPUT_DIM = 2 #len(test_data.classes)
-
-    fc = nn.Linear(IN_FEATURES, OUTPUT_DIM)
-
-
-    # In[27]:
-
-
-    pretrained_model.fc = fc
-
-
-    # In[28]:
-
-
-    model = ResNet(resnet34_config, OUTPUT_DIM)
-
-
-    # In[29]:
-
-
-    model.load_state_dict(pretrained_model.state_dict())
+    # IN_FEATURES = pretrained_model.fc.in_features
+    # OUTPUT_DIM = 2 #len(test_data.classes)
+    #
+    # fc = nn.Linear(IN_FEATURES, OUTPUT_DIM)
+    #
+    #
+    # # In[27]:
+    #
+    #
+    # pretrained_model.fc = fc
+    #
+    #
+    # # In[28]:
+    #
+    #
+    # model = ResNet(resnet34_config, OUTPUT_DIM)
+    #
+    #
+    # # In[29]:
+    #
+    #
+    # model.load_state_dict(pretrained_model.state_dict())
 
 
 
@@ -359,5 +360,5 @@ def get_model():
 
 
 
-    model.load_state_dict(torch.load('model.pt'))
+    model.load_state_dict(torch.load('model_effb1.pt'))
     return model
