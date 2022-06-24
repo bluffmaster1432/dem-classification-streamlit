@@ -21,7 +21,7 @@ def load_model_multiclass():
     return get_model_8class()
 
 resnet = load_model()
-model_multiclass = load_model_multiclass()
+# model_multiclass = load_model_multiclass()
 
 
 def predict(image):
@@ -52,8 +52,8 @@ def predict(image):
     resnet.eval()
     out = resnet(batch_t)[0]
 
-    model_multiclass.eval()
-    out_multiclass = model_multiclass(batch_t)[0]
+    # model_multiclass.eval()
+    # out_multiclass = model_multiclass(batch_t)[0]
     # print(out)
 
     classes = ['Benign', 'Malignant']
@@ -64,12 +64,12 @@ def predict(image):
     prob = torch.nn.functional.softmax(out) * 100
     _, indices = torch.sort(out, descending = True)
 
-    prob_multiclass = torch.nn.functional.softmax(out_multiclass) * 100
-    _, indices_multiclass = torch.sort(out_multiclass, descending = True)
+    # prob_multiclass = torch.nn.functional.softmax(out_multiclass) * 100
+    # _, indices_multiclass = torch.sort(out_multiclass, descending = True)
     # print(indices)
     # return [(classes[idx], prob[idx].item()) for idx in indices[0][:5]]
 
-    return [(classes[idx], prob[idx].item()) for idx in indices[:5]] , [(classes_multiclass[idx], prob_multiclass[idx].item()) for idx in indices_multiclass[:5]]
+    return [(classes[idx], prob[idx].item()) for idx in indices[:5]] #, [(classes_multiclass[idx], prob_multiclass[idx].item()) for idx in indices_multiclass[:5]]
 
 
 if file_up is not None:
@@ -78,11 +78,11 @@ if file_up is not None:
     st.image(image, caption = 'Uploaded Image.', use_column_width = True)
     st.write("")
     st.write("Just a second ...")
-    labels, labels_multiclass = predict(file_up)
+    labels = predict(file_up)
 
     # print out the top 5 prediction labels with scores
     for i in labels:
         st.write("Prediction (index, name)", i[0], ",   Score: ", i[1])
-    st.info("Subclass result")
-    for i in labels_multiclass:
-        st.write("Prediction (index, name)", i[0], ",   Score: ", i[1])
+    # st.info("Subclass result")
+    # for i in labels_multiclass:
+    #     st.write("Prediction (index, name)", i[0], ",   Score: ", i[1])
