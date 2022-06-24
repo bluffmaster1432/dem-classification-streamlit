@@ -44,5 +44,5 @@ def get_model():
 def get_model_8class():
 
     model = EfficientNet.from_pretrained('efficientnet-b4', num_classes=8)
-    model.load_state_dict(torch.load('model_effb4_8class.pt'))
+    model.load_state_dict(torch.load('model_effb4_8class.pt',map_location=torch.device('cpu')))
     return model
